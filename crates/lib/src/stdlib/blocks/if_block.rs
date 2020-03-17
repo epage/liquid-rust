@@ -4,7 +4,7 @@ use std::io::Write;
 use liquid_core::compiler::BlockElement;
 use liquid_core::compiler::TagToken;
 use liquid_core::error::ResultLiquidExt;
-use liquid_core::value::{ValueView, ValueViewCmp};
+use liquid_core::value::values::{ValueView, ValueViewCmp};
 use liquid_core::Expression;
 use liquid_core::Language;
 use liquid_core::Renderable;
@@ -97,7 +97,7 @@ impl ExistenceCondition {
     pub fn evaluate(&self, runtime: &Runtime<'_>) -> Result<bool> {
         let a = self.lh.try_evaluate(runtime);
         let a = a.unwrap_or_default();
-        let is_truthy = a.query_state(liquid_core::value::State::Truthy);
+        let is_truthy = a.query_state(liquid_core::value::values::State::Truthy);
         Ok(is_truthy)
     }
 }

@@ -203,7 +203,7 @@ impl<'g> Default for Stack<'g> {
 mod test {
     use super::*;
 
-    use liquid_value::ValueViewCmp;
+    use liquid_value::values::ValueViewCmp;
 
     #[test]
     fn stack_find_frame() {

@@ -4,7 +4,7 @@ use itertools;
 use liquid_core::compiler::BlockElement;
 use liquid_core::compiler::TryMatchToken;
 use liquid_core::error::ResultLiquidExt;
-use liquid_core::value::{ValueView, ValueViewCmp};
+use liquid_core::value::values::{ValueView, ValueViewCmp};
 use liquid_core::Expression;
 use liquid_core::Language;
 use liquid_core::Renderable;

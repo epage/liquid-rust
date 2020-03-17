@@ -218,9 +218,9 @@ impl<'g> Default for Runtime<'g> {
 mod test {
     use super::*;
 
+    use liquid_value::values::ValueViewCmp;
     use liquid_value::Scalar;
     use liquid_value::Value;
-    use liquid_value::ValueViewCmp;
 
     #[test]
     fn scoped_variables() {

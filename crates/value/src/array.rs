@@ -4,10 +4,8 @@ use std::fmt;
 
 use kstring::KStringCow;
 
-use crate::DisplayCow;
-use crate::State;
-use crate::Value;
-use crate::ValueView;
+use crate::values::{DisplayCow, State};
+use crate::{Value, ValueView};
 
 /// Accessor for arrays.
 pub trait ArrayView: ValueView {

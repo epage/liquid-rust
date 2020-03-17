@@ -95,8 +95,8 @@ impl fmt::Display for Variable {
 mod test {
     use super::*;
 
+    use liquid_value::values::ValueViewCmp;
     use liquid_value::Object;
-    use liquid_value::ValueViewCmp;
     use serde_yaml;
 
     use super::super::RuntimeBuilder;

@@ -15,21 +15,21 @@ pub fn derive(input: &DeriveInput) -> TokenStream {
                 self
             }
 
-            fn render(&self) -> ::liquid::value::DisplayCow<'_> {
-                ::liquid::value::DisplayCow::Owned(Box::new(::liquid::value::object::ObjectRender::new(self)))
+            fn render(&self) -> ::liquid::value::values::DisplayCow<'_> {
+                ::liquid::value::values::DisplayCow::Owned(Box::new(::liquid::value::object::ObjectRender::new(self)))
             }
-            fn source(&self) -> ::liquid::value::DisplayCow<'_> {
-                ::liquid::value::DisplayCow::Owned(Box::new(::liquid::value::object::ObjectSource::new(self)))
+            fn source(&self) -> ::liquid::value::values::DisplayCow<'_> {
+                ::liquid::value::values::DisplayCow::Owned(Box::new(::liquid::value::object::ObjectSource::new(self)))
             }
             fn type_name(&self) -> &'static str {
                 "object"
             }
-            fn query_state(&self, state: ::liquid::value::State) -> bool {
+            fn query_state(&self, state: ::liquid::value::values::State) -> bool {
                 match state {
-                    ::liquid::value::State::Truthy => true,
-                    ::liquid::value::State::DefaultValue |
-                    ::liquid::value::State::Empty |
-                    ::liquid::value::State::Blank => self.size() == 0,
+                    ::liquid::value::values::State::Truthy => true,
+                    ::liquid::value::values::State::DefaultValue |
+                    ::liquid::value::values::State::Empty |
+                    ::liquid::value::values::State::Blank => self.size() == 0,
                 }
             }
 

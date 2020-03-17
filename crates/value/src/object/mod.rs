@@ -9,8 +9,7 @@ use std::fmt;
 
 use kstring::KStringCow;
 
-use crate::DisplayCow;
-use crate::State;
+use crate::values::{DisplayCow, State};
 use crate::{Value, ValueView};
 
 pub use map::*;
