@@ -7,9 +7,6 @@
 #[macro_use]
 extern crate serde;
 
-#[macro_use]
-mod macros;
-
 mod ser;
 
 pub mod array;

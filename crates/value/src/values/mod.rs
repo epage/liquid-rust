@@ -1,5 +1,7 @@
 //! Liquid Value type.
 
+mod macros;
+
 pub(crate) mod ser;
 
 mod cow;
@@ -8,6 +10,7 @@ mod state;
 mod value;
 mod view;
 
+pub use macros::*;
 pub use cow::*;
 pub use display::*;
 pub use ser::*;

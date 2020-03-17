@@ -1,5 +1,7 @@
 //! Type representing a Liquid object, payload of the `Value::Object` variant
 
+mod macros;
+
 mod map;
 mod ser;
 
@@ -12,6 +14,7 @@ use kstring::KStringCow;
 use crate::values::{DisplayCow, State};
 use crate::{Value, ValueView};
 
+pub use macros::*;
 pub use map::*;
 pub use ser::to_object;
 

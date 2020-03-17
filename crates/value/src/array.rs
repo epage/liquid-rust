@@ -7,6 +7,116 @@ use kstring::KStringCow;
 use crate::values::{DisplayCow, State};
 use crate::{Value, ValueView};
 
+/// A value::Array literal.
+///
+/// # Example
+///
+/// ```rust
+/// # use liquid_value::ValueView;
+/// #
+/// # fn main() {
+/// liquid_value::value!([1, "2", 3])
+///     .as_array().unwrap();
+/// # }
+/// ```
+#[macro_export(local_inner_macros)]
+macro_rules! array {
+    ($($value:tt)+) => {
+        array_internal!($($value)+)
+    };
+}
+
+#[macro_export(local_inner_macros)]
+#[doc(hidden)]
+macro_rules! array_internal {
+    // Done with trailing comma.
+    (@array [$($elems:expr,)*]) => {
+        array_internal_vec![$($elems,)*]
+    };
+
+    // Done without trailing comma.
+    (@array [$($elems:expr),*]) => {
+        array_internal_vec![$($elems),*]
+    };
+
+    // Next element is `nil`.
+    (@array [$($elems:expr,)*] nil $($rest:tt)*) => {
+        array_internal!(@array [$($elems,)* value_internal!(nil)] $($rest)*)
+    };
+
+    // Next element is `true`.
+    (@array [$($elems:expr,)*] true $($rest:tt)*) => {
+        array_internal!(@array [$($elems,)* value_internal!(true)] $($rest)*)
+    };
+
+    // Next element is `false`.
+    (@array [$($elems:expr,)*] false $($rest:tt)*) => {
+        array_internal!(@array [$($elems,)* value_internal!(false)] $($rest)*)
+    };
+
+    // Next element is an array.
+    (@array [$($elems:expr,)*] [$($array:tt)*] $($rest:tt)*) => {
+        array_internal!(@array [$($elems,)* value_internal!([$($array)*])] $($rest)*)
+    };
+
+    // Next element is a map.
+    (@array [$($elems:expr,)*] {$($map:tt)*} $($rest:tt)*) => {
+        array_internal!(@array [$($elems,)* value_internal!({$($map)*})] $($rest)*)
+    };
+
+    // Next element is an expression followed by comma.
+    (@array [$($elems:expr,)*] $next:expr, $($rest:tt)*) => {
+        array_internal!(@array [$($elems,)* value_internal!($next),] $($rest)*)
+    };
+
+    // Last element is an expression with no trailing comma.
+    (@array [$($elems:expr,)*] $last:expr) => {
+        array_internal!(@array [$($elems,)* value_internal!($last)])
+    };
+
+    // Comma after the most recent element.
+    (@array [$($elems:expr),*] , $($rest:tt)*) => {
+        array_internal!(@array [$($elems,)*] $($rest)*)
+    };
+
+    // Unexpected token after most recent element.
+    (@array [$($elems:expr),*] $unexpected:tt $($rest:tt)*) => {
+        array_unexpected!($unexpected)
+    };
+
+    //////////////////////////////////////////////////////////////////////////
+    // The main implementation.
+    //
+    // Must be invoked as: value_internal!($($value)+)
+    //////////////////////////////////////////////////////////////////////////
+
+    ([]) => {
+        $crate::Array::default()
+    };
+
+    ([ $($tt:tt)+ ]) => {
+        array_internal!(@array [] $($tt)+)
+    };
+
+    ($other:ident) => {
+        $other
+    };
+}
+
+#[macro_export]
+#[doc(hidden)]
+macro_rules! array_internal_vec {
+    ($($content:tt)*) => {
+        vec![$($content)*]
+    };
+}
+
+#[macro_export]
+#[doc(hidden)]
+macro_rules! array_unexpected {
+    () => {};
+}
+
 /// Accessor for arrays.
 pub trait ArrayView: ValueView {
     /// Cast to ValueView

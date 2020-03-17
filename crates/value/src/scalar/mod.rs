@@ -1,5 +1,7 @@
 //! A Liquid scalar value
 
+mod macros;
+
 mod date;
 pub(crate) mod ser;
 
@@ -15,6 +17,7 @@ use crate::{Value, ValueView};
 
 pub use date::*;
 pub use ser::to_scalar;
+pub use macros::*;
 
 /// A Liquid scalar value
 #[derive(Clone, Serialize, Deserialize)]
