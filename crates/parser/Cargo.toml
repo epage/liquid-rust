@@ -1,0 +1,16 @@
+[package]
+name = "liquid-parser"
+version = "0.23.0"
+authors = ["Ed Page <eopage@gmail.com>"]
+description = "Core liquid functionality"
+repository = "https://github.com/cobalt-org/liquid-rust/tree/master/crate/core"
+documentation = "https://docs.rs/liquid-core"
+readme = "README.md"
+categories = ["template-engine"]
+keywords = ["liquid", "template", "templating", "language", "html"]
+license = "MIT OR Apache-2.0"
+edition = "2018"
+
+[dependencies]
+liquid-core = { version = "^0.23.0", path = "../core" }
+nom = "7.0"
