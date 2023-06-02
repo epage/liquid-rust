@@ -18,18 +18,18 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
-anymap2 = "0.13"
-itertools = "0.10.0"
-num-traits = "0.2"
-pest = "2.0"
-pest_derive = "2.0"
-regex = "1.5"
-
 # Exposed in API
 time = { version = "0.3", default-features = false, features = ["formatting", "macros", "parsing"] }
 serde = { version = "1.0.157", features = ["derive"] }
 kstring = { version = "2.0", features = ["serde"] }
 liquid-derive = { version = "^0.26.3", path = "../derive", optional = true }
+
+# Private
+anymap2 = "0.13"
+itertools = "0.10.0"
+num-traits = "0.2"
+regex = "1.5"
+winnow = "0.4.6"
 
 [dev-dependencies]
 serde_yaml = "0.8"
